@@ -5,14 +5,14 @@ import { ErrorPage, FormPost, HomePage } from '../pages/barrel';
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: <HomePage/>
+        element: <HomePage />
     },
     {
-        path: "PostForm",
-        element: <FormPost/>
+        path: "new",
+        element: <FormPost />
     },
     {
         path: "*",
-        element: <ErrorPage/>
+        element: <ErrorPage />
     },
 ])
