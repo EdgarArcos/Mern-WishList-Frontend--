@@ -14,7 +14,7 @@ export function HomePage() {
   return (
     <>
       <div className="text-white">
-        <button onClick={() => setShowModal(true)}>Nuevo Post</button>
+        <button onClick={() => setShowModal(true)}>New Post</button>
         <div className=" grid grid-cols-4 gap-2">
           {posts && posts.map(post => (
             <PostCard post={post} key={post._id} />
