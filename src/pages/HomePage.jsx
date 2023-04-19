@@ -1,6 +1,6 @@
 import { usePosts } from "../Context/PostContext";
 import { useState } from "react";
-import { FormPost } from "./FormPost";
+import { PostCard, FormPost } from "../components";
 export function HomePage() {
 
   const { posts } = usePosts()
@@ -15,12 +15,12 @@ export function HomePage() {
     <>
       <div className="text-white">
         <button onClick={() => setShowModal(true)}>Nuevo Post</button>
-        {posts && posts.map(post => (
-          <div key={post._id}>
-            {post.title}
-          </div>
-        )
-        )}
+        <div className=" grid grid-cols-4 gap-2">
+          {posts && posts.map(post => (
+            <PostCard post={post} key={post._id} />
+          )
+          )}
+        </div>
       </div>
       <FormPost isvisible={showModal} onClose={() => setShowModal(false)} />
     </>

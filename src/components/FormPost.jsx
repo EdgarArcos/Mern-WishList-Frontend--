@@ -10,8 +10,8 @@ export function FormPost({ isvisible, onClose }) {
     if (e.target.id === "wrapper") onClose()
   }
   return (
-    <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center' id='wrapper' onClick={handleClose}>
-      <div className='flex flex-col'>
+    <div className=' fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm' id='wrapper' onClick={handleClose}>
+      <div className='grid place-items-center mt-40  '>
         <button className='text-white text-xl pl-96' onClick={() => onClose()}>X</button>
         <div className='bg-white p-2 rounded w-96'>
           <h3 className="text-center">Create New Post</h3>

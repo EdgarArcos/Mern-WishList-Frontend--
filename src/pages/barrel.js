@@ -1,3 +1,2 @@
-export * from './ErrorPage'
-export * from './FormPost';
-export * from './HomePage';
+export * from './ErrorPage';
+export * from "./HomePage"
