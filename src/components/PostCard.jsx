@@ -2,10 +2,19 @@ import toast from "react-hot-toast";
 import { usePosts } from "../Context/PostContext";
 import { useState } from "react";
 import { FormEdit } from "./FormEdit";
+import { useNavigate } from "react-router-dom";
 
 export default function PostCard({ post }) {
+    const navigate = useNavigate()
     const { deletePost } = usePosts()
     const [showEdit, setShowEdit] = useState(false)
+
+    const handleEdit = (_id) => {
+        navigate(`/posts/${post._id}`)
+        setShowEdit(true)
+    }
+
+
     const handleDelete = (_id, title) => {
         toast((t) => (
             <div className="text-center">
@@ -22,7 +31,7 @@ export default function PostCard({ post }) {
             <div className=" px-12 py-7">
                 <div className="flex justify-between">
                     <h3>{post.title}</h3>
-                    <button onClick={() => setShowEdit(true)} post={post}>Edit</button>
+                    <button onClick={() => handleEdit()}>Edit </button>
                     <button onClick={() => handleDelete(post._id, post.title)} className="bg-red-600 text-sm px-2 ml-12 py-1 rounded-sm hover:  ">Delete</button>
                 </div>
                 <p>{post.description}</p>

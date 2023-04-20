@@ -1,14 +1,33 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { usePosts } from "../Context/PostContext";
 import * as Yup from "yup";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-export function FormEdit({ isvisible, onClose, post }) {
+export function FormEdit({ isvisible, onClose, title }) {
     if (!isvisible) return null
-    const { createPost } = usePosts()
+    const { getPost } = usePosts()
+    const navigate = useNavigate()
+    const params = useParams()
+    const [post, setPost] = useState({
+        title: "",
+        description: ""
+    })
 
     function handleClose(e) {
         if (e.target.id === "wrapper") onClose()
+        navigate('/')
     }
+    useEffect(() => {
+        (async () => {
+            if (params.id) {
+                const post = await getPost(params.id)
+                setPost(post)
+                console.log(post);
+            }
+        })()
+    }, [])
+
     return (
         <div className=' fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm' id='wrapper' onClick={handleClose}>
             <div className='grid place-items-center mt-40  '>
@@ -17,10 +36,7 @@ export function FormEdit({ isvisible, onClose, post }) {
                     <h3 className=" text-black text-center">Edit</h3>
                     <div>
                         <Formik
-                            initialValues={{
-                                title: '',
-                                description: ''
-                            }}
+                            initialValues={post}
                             validationSchema={Yup.object({
                                 title: Yup.string().required("Title is Required"),
                                 description: Yup.string().required("Description is Required"),
@@ -29,6 +45,7 @@ export function FormEdit({ isvisible, onClose, post }) {
                                 createPost(values)
                                 onClose()
                             }}
+                            enableReinitialize
                         >
                             {({ handleSubmit }) => (
                                 <Form onSubmit={handleSubmit}>
