@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { usePosts } from "../Context/PostContext";
 import { useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import * as Yup from "yup";
 
 export function FormPost({ isvisible, onClose }) {
@@ -27,12 +28,13 @@ export function FormPost({ isvisible, onClose }) {
                 title: Yup.string().required("Title is Required"),
                 description: Yup.string().required("Description is Required"),
               })}
-              onSubmit={async (values, action) => {
+              onSubmit={async (values, actions) => {
                 await createPost(values)
                 onClose()
+                actions.setSubmitting(false)
               }}
             >
-              {({ handleSubmit, setFieldValue }) => (
+              {({ handleSubmit, setFieldValue, isSubmitting }) => (
                 <Form onSubmit={handleSubmit}>
                   <h3>Title</h3>
                   <Field name='title' placeholder='title' className="px-3 py-2 focus:outline-none rounded bg-gray-600 text-white w-full" />
@@ -42,7 +44,9 @@ export function FormPost({ isvisible, onClose }) {
                   <ErrorMessage className="text-red-400 text-sm" component="p" name="description" />
                   <h3>Image</h3>
                   <input type="file" name="image" className="px-3 py-2 focus:outline-none rounded bg-gray-600 text-white w-full" onChange={(e) => setFieldValue('image', e.target.files[0])} />
-                  <button className=" bg-indigo-600 px-4 py-2 rounded mt-2 text-white focus:outline-none disabled:bg-indigo-400 hover:bg-indigo-500" type="submit">Save</button>
+                  <button className=" bg-indigo-600 px-4 py-2 rounded mt-2 text-white focus:outline-none disabled:bg-indigo-400 hover:bg-indigo-500" type="submit" disabled={isSubmitting}>{isSubmitting ? (
+                    <AiOutlineLoading3Quarters className=" animate-spin h-5 w-5" />
+                  ) : 'Save'}</button>
                 </Form>)}
             </Formik>
           </div>
