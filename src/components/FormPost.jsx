@@ -37,7 +37,7 @@ export function FormPost({ isvisible, onClose }) {
                   <h3>Description</h3>
                   <Field className="px-3 py-2 focus:outline-none rounded bg-gray-600 text-white w-full" name='description' placeholder='description' />
                   <ErrorMessage className="text-red-400 text-sm" component="p" name="description" />
-                  <button type="submit">Save</button>
+                  <button className=" bg-indigo-600 px-4 py-2 rounded mt-2 text-white focus:outline-none disabled:bg-indigo-400 hover:bg-indigo-500" type="submit">Save</button>
                 </Form>)}
             </Formik>
           </div>
