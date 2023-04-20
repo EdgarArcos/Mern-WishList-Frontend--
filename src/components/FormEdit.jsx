@@ -6,14 +6,13 @@ import { useEffect, useState } from "react";
 
 export function FormEdit({ isvisible, onClose, title }) {
     if (!isvisible) return null
-    const { getPost } = usePosts()
+    const { getPost, updatePost } = usePosts()
     const navigate = useNavigate()
     const params = useParams()
     const [post, setPost] = useState({
         title: "",
         description: ""
     })
-
     function handleClose(e) {
         if (e.target.id === "wrapper") onClose()
         navigate('/')
@@ -23,7 +22,7 @@ export function FormEdit({ isvisible, onClose, title }) {
             if (params.id) {
                 const post = await getPost(params.id)
                 setPost(post)
-                console.log(post);
+                console.log(post._id);
             }
         })()
     }, [params.id])
@@ -42,7 +41,7 @@ export function FormEdit({ isvisible, onClose, title }) {
                                 description: Yup.string().required("Description is Required"),
                             })}
                             onSubmit={(values, action) => {
-                                createPost(values)
+                                updatePost(post._id, values)
                                 onClose()
                             }}
                             enableReinitialize

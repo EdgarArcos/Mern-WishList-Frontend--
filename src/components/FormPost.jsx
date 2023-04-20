@@ -25,8 +25,9 @@ export function FormPost({ isvisible, onClose }) {
                 title: Yup.string().required("Title is Required"),
                 description: Yup.string().required("Description is Required"),
               })}
-              onSubmit={(values, action) => {
-
+              onSubmit={async (values, action) => {
+                await createPost(values)
+                onClose()
               }}
             >
               {({ handleSubmit }) => (
