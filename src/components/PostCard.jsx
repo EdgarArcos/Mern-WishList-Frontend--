@@ -35,6 +35,7 @@ export default function PostCard({ post }) {
                     <button onClick={() => handleDelete(post._id, post.title)} className="bg-red-600 text-sm px-2 ml-12 py-1 rounded-sm hover:  ">Delete</button>
                 </div>
                 <p>{post.description}</p>
+                {post.image && <img src={post.image.url} />}
             </div>
             <FormEdit isvisible={showEdit} onClose={() => setShowEdit(false)} />
         </div>

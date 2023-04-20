@@ -1,11 +1,16 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { usePosts } from "../Context/PostContext";
+import { useState } from "react";
 import * as Yup from "yup";
 
 export function FormPost({ isvisible, onClose }) {
   if (!isvisible) return null
   const { createPost } = usePosts()
-
+  const [createdPost, setCreatedPost] = useState({
+    title: "",
+    description: "",
+    image: null
+  })
   function handleClose(e) {
     if (e.target.id === "wrapper") onClose()
   }
@@ -17,10 +22,7 @@ export function FormPost({ isvisible, onClose }) {
           <h3 className="text-center">Create New Post</h3>
           <div>
             <Formik
-              initialValues={{
-                title: '',
-                description: ''
-              }}
+              initialValues={createdPost}
               validationSchema={Yup.object({
                 title: Yup.string().required("Title is Required"),
                 description: Yup.string().required("Description is Required"),
@@ -30,7 +32,7 @@ export function FormPost({ isvisible, onClose }) {
                 onClose()
               }}
             >
-              {({ handleSubmit }) => (
+              {({ handleSubmit, setFieldValue }) => (
                 <Form onSubmit={handleSubmit}>
                   <h3>Title</h3>
                   <Field name='title' placeholder='title' className="px-3 py-2 focus:outline-none rounded bg-gray-600 text-white w-full" />
@@ -38,6 +40,8 @@ export function FormPost({ isvisible, onClose }) {
                   <h3>Description</h3>
                   <Field className="px-3 py-2 focus:outline-none rounded bg-gray-600 text-white w-full" name='description' placeholder='description' />
                   <ErrorMessage className="text-red-400 text-sm" component="p" name="description" />
+                  <h3>Image</h3>
+                  <input type="file" name="image" className="px-3 py-2 focus:outline-none rounded bg-gray-600 text-white w-full" onChange={(e) => setFieldValue('image', e.target.files[0])} />
                   <button className=" bg-indigo-600 px-4 py-2 rounded mt-2 text-white focus:outline-none disabled:bg-indigo-400 hover:bg-indigo-500" type="submit">Save</button>
                 </Form>)}
             </Formik>
