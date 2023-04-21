@@ -10,12 +10,13 @@ const clientId = import.meta.env.VITE_APP_AUTH0_CLIENT_ID
 function App() {
   return (
     <div className="bg-neutral-900 min-h-screen grid place-items-center">
-      <PostProvider>
-        <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin} >
+      <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin} >
+        <PostProvider>
           <RouterProvider router={router} />
           <Toaster />
-        </Auth0Provider>
-      </PostProvider></div>
+        </PostProvider>
+      </Auth0Provider>
+    </div>
   )
 }
 
