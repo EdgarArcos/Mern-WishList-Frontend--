@@ -3,14 +3,17 @@ import { usePosts } from "../Context/PostContext";
 import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import * as Yup from "yup";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export function FormPost({ isvisible, onClose }) {
+  const { user } = useAuth0()
   if (!isvisible) return null
   const { createPost } = usePosts()
   const [createdPost, setCreatedPost] = useState({
     title: "",
     description: "",
-    image: null
+    image: null,
+    user: user.email
   })
   function handleClose(e) {
     if (e.target.id === "wrapper") onClose()
