@@ -1,16 +1,25 @@
 import { usePosts } from "../Context/PostContext";
 import { PostCard, FormPost } from "../components";
-import { useAuth0 } from "@auth0/auth0-react";
+import { LocalStorageCache, useAuth0 } from "@auth0/auth0-react";
 import LoginButtton from "../components/buttons/LoginButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileButton from "../components/buttons/ProfileButton";
 import { ModalLogin } from "../components/ModalLogin";
 
 export function HomePage() {
 
-  const { posts } = usePosts()
+  const { getPosts } = usePosts()
   const [showModal, setShowModal] = useState(false)
-  const { isAuthenticated } = useAuth0()
+  const [posts, setPosts] = useState([])
+  const { isAuthenticated, user } = useAuth0()
+
+  useEffect(() => {
+    const getFilteredPosts = async () => {
+      const filteredPosts = await getPosts(user)
+      setPosts(filteredPosts)
+    }
+    getFilteredPosts()
+  }, [user])
 
 
   if (posts.length === 0) return (
@@ -29,8 +38,9 @@ export function HomePage() {
       <div className="text-white">
         <button onClick={() => modalVerify()}>New Post</button>
         {isAuthenticated ? <ProfileButton /> : <LoginButtton />}
+
         <div className=" grid grid-cols-4 gap-2">
-          {posts && posts.map(post => (
+          {posts.length !== 0 && posts.map(post => (
             <PostCard post={post} key={post._id} />
           )
           )}

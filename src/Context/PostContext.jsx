@@ -12,12 +12,14 @@ export const usePosts = () => {
 
 export function PostProvider({ children }) {
   const [posts, setPosts] = useState([])
-  const { user } = useAuth0()
-  console.log(user);
+
   const getPosts = async (user) => {
     const resultado = await getPostsRequests()
-    resultado.data.map((post) => { post.user === user ? console.log(post) : post })
-    setPosts(resultado.data)
+    let posts = []
+    if (user?.email) {
+      resultado.data.map((post) => { if (post.user === user.email) posts.push(post) })
+    }
+    return posts
   }
 
 
