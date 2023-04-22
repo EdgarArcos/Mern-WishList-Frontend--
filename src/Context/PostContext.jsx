@@ -1,9 +1,7 @@
 import { useState, createContext, useContext, useEffect } from 'react'
 import { getPostsRequests, createPostRequest, deletePostRequest, getPostRequest, updatePostRequest } from "../api/post";
-import { useAuth0 } from "@auth0/auth0-react";
 
 export const postContext = createContext()
-
 
 export const usePosts = () => {
   const context = useContext(postContext)
@@ -22,7 +20,6 @@ export function PostProvider({ children }) {
     return posts
   }
 
-
   const createPost = async (post) => {
     const res = await createPostRequest(post)
     setPosts([...posts, res.data])
@@ -40,16 +37,13 @@ export function PostProvider({ children }) {
 
   const updatePost = async (id, newPost) => {
     const res = await updatePostRequest(id, newPost)
-    console.log(id);
     setPosts(posts.map((post) => (post._id === id ? newPost : post)))
 
   }
 
-  useEffect(() => {
-    getPosts()
-  }, [])
+
   return (
-    <postContext.Provider value={{ posts, setPosts, getPosts, createPost, deletePost, getPost, updatePost }}>
+    <postContext.Provider value={{ setPosts, getPosts, createPost, deletePost, getPost, updatePost }}>
       {children}
     </postContext.Provider>
   )

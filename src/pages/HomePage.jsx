@@ -1,6 +1,6 @@
 import { usePosts } from "../Context/PostContext";
 import { PostCard, FormPost } from "../components";
-import { LocalStorageCache, useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import LoginButtton from "../components/buttons/LoginButton";
 import { useEffect, useState } from "react";
 import ProfileButton from "../components/buttons/ProfileButton";
@@ -10,19 +10,18 @@ export function HomePage() {
 
   const { getPosts } = usePosts()
   const [showModal, setShowModal] = useState(false)
-  const [posts, setPosts] = useState([])
+  const [filteredPosts, setFilteredPosts] = useState([])
   const { isAuthenticated, user } = useAuth0()
 
   useEffect(() => {
     const getFilteredPosts = async () => {
-      const filteredPosts = await getPosts(user)
-      setPosts(filteredPosts)
+      setFilteredPosts(await getPosts(user))
     }
     getFilteredPosts()
-  }, [user])
+  }, [user, getPosts])
 
 
-  if (posts.length === 0) return (
+  if (filteredPosts.length === 0) return (
     <div>
       <h1 className="text-white">No existen ninguna tarea haz login y creala!!!</h1>
       <LoginButtton />
@@ -40,7 +39,7 @@ export function HomePage() {
         {isAuthenticated ? <ProfileButton /> : <LoginButtton />}
 
         <div className=" grid grid-cols-4 gap-2">
-          {posts.length !== 0 && posts.map(post => (
+          {filteredPosts.length !== 0 && filteredPosts.map(post => (
             <PostCard post={post} key={post._id} />
           )
           )}

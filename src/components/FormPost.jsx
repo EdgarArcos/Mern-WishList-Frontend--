@@ -7,7 +7,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export function FormPost({ isvisible, onClose }) {
   const { user } = useAuth0()
-  if (!isvisible) return null
   const { createPost } = usePosts()
   const [createdPost, setCreatedPost] = useState({
     title: "",
@@ -15,6 +14,7 @@ export function FormPost({ isvisible, onClose }) {
     image: null,
     user: user.email
   })
+  if (!isvisible) return null
   function handleClose(e) {
     if (e.target.id === "wrapper") onClose()
   }

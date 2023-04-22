@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export function FormEdit({ isvisible, onClose, title }) {
-    if (!isvisible) return null
     const { getPost, updatePost } = usePosts()
     const navigate = useNavigate()
     const params = useParams()
@@ -22,10 +21,10 @@ export function FormEdit({ isvisible, onClose, title }) {
             if (params.id) {
                 const post = await getPost(params.id)
                 setPost(post)
-                console.log(post._id);
             }
         })()
     }, [params.id])
+    if (!isvisible) return null
 
     return (
         <div className=' fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm' id='wrapper' onClick={handleClose}>
