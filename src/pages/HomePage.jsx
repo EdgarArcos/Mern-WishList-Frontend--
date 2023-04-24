@@ -20,32 +20,35 @@ export function HomePage() {
     getFilteredPosts()
   }, [user, getPosts])
 
-
-  if (filteredPosts.length === 0) return (
-    <div>
-      <h1 className="text-white">No existen ninguna tarea haz login y creala!!!</h1>
-      <LoginButtton />
-    </div>
-  )
-
   const modalVerify = () => {
+    console.log();
     isAuthenticated ? setShowModal(true) : ModalLogin()
   }
 
-  return (
-    <>
-      <div className="text-white">
-        <button onClick={() => modalVerify()}>New Post</button>
-        {isAuthenticated ? <ProfileButton /> : <LoginButtton />}
-
-        <div className=" grid grid-cols-4 gap-2">
-          {filteredPosts.length !== 0 && filteredPosts.map(post => (
-            <PostCard post={post} key={post._id} />
-          )
-          )}
+  if (isAuthenticated === false) {
+    return (
+      <>
+        <div className=" mt-5" >{<LoginButtton />}</div>
+        <div className="text-white ml-24 mr-24 mb-24">
+          <button className=" bg-indigo-600 text-sm px-2 py-1 rounded-sm hover:bg-indigo-500 my-5" onClick={() => modalVerify()}>New Post +</button>
         </div>
-      </div>
-      <FormPost isvisible={showModal} onClose={() => setShowModal(false)} />
-    </>
-  )
+      </>)
+
+  } else {
+    return (
+      <>
+        <div className="mt-5 " ><ProfileButton /></div>
+        <div className="text-white ml-24 mr-24 mb-24">
+          <button className="ml-5 bg-indigo-600 text-sm px-2 py-1 rounded-sm hover:bg-indigo-500 my-5" onClick={() => modalVerify()}>New Post +</button>
+          <div className=" grid grid-cols-4 gap-2">
+            {filteredPosts.length !== 0 && filteredPosts.map(post => (
+              <PostCard post={post} key={post._id} />
+            )
+            )}
+          </div>
+        </div>
+        <FormPost isvisible={showModal} onClose={() => setShowModal(false)} />
+      </>
+    )
+  }
 }

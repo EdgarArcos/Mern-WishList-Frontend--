@@ -6,7 +6,7 @@ export const ModalLogin = () => {
     toast((t) => (
         <div className="text-center">
             <h3>To access this function you must first log in.</h3>
-            <p><LoginButtton /></p>
+            <LoginButtton />
         </div>
     ))
 
