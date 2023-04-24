@@ -5,6 +5,8 @@ import { FormEdit } from "./FormEdit";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ModalLogin } from "./ModalLogin";
+import { FaPencilAlt } from "react-icons/fa"
+import { BsTrash3Fill } from "react-icons/bs";
 
 export default function PostCard({ post }) {
     const navigate = useNavigate()
@@ -41,8 +43,8 @@ export default function PostCard({ post }) {
             <div className=" rounded-2xl bg-zinc-800 hover:bg-zinc-700 hover:cursor-pointer ">
                 <div className=" px-12 py-5">
                     <div className=" my-1 text-end">
-                        <button className="ml-5 bg-orange-600 text-sm px-2 py-1 rounded-sm hover:bg-orange-500" onClick={() => verifyHandleEdit()}>Edit </button>
-                        <button onClick={() => verifyHandleDelete(post._id, post.title)} className="bg-red-600 text-sm px-2 py-1 ml-5 rounded-sm hover:bg-red-500">Delete</button>
+                        <button className="ml-5 bg-orange-600 text-sm px-4 py-2 rounded-sm hover:bg-orange-500" onClick={() => verifyHandleEdit()}><FaPencilAlt /></button>
+                        <button onClick={() => verifyHandleDelete(post._id, post.title)} className="bg-red-600 text-sm px-4 py-2 ml-5 rounded-sm hover:bg-red-500"><BsTrash3Fill /></button>
                     </div>
                     <div className="text-center">
                         <h2 className=" break-all text-xl uppercase">{post.title}</h2>
