@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { ErrorPage, HomePage } from '../pages/barrel';
 import { FormEdit } from '../components';
-import Profile from '../components/Profile';
+import Profile from '../pages/Profile';
 
 
 export const router = createBrowserRouter([
