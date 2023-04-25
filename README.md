@@ -1,5 +1,5 @@
 # Introducción 
-Hola soy Edgar y soy el creador de este proyecto , la intención de este es aprender a usar formik, yup, auth0, nodejs, express, nodemoon y mongo compass y mejorar mis practicas sobre react y Tailwind para ello cree este MERN donde uso todo lo ya dicho y mas como por ejemplo react icons y react toast puedes crear posts con imágenes o gifs donde de suben a Cloudinary también puedes editar y  eliminar los post, logearte y hacer logout todo con una pequeña autentificación que facilita auth0  he intentar hacer todo esto desde una misma pagina sin necesidad de cambiar  en ningún momento.
+Hola soy Edgar y soy el creador de este proyecto , la intención de este es aprender a usar formik, yup, auth0, nodejs, express, nodemoon y mongo compass y mejorar mis practicas sobre react y Tailwind para ello cree este MERN donde uso todo lo ya dicho y mas como por ejemplo react icons y react toast puedes crear posts con imágenes o gifs donde se suben a Cloudinary también puedes editar y  eliminar los post, logearte y hacer logout todo con una pequeña autentificación que facilita auth0  he intentar hacer todo esto desde una misma pagina sin necesidad de cambiar  en ningún momento.
 
 # Estado de Proyecto
 
